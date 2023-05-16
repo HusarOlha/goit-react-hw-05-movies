@@ -1,7 +1,7 @@
 import SearchBar from 'components/SearchForm';
 import { useState, useEffect } from 'react';
 import { GetMoviesBySearch } from 'components/Services/GetMovie';
-// import MovieList from 'components/TrendingMovie';
+import MovieList from 'components/TrendingMovie';
 import Loader from 'components/Loader/Loader';
 import { toast } from 'react-hot-toast';
 
@@ -60,7 +60,7 @@ const Movies = () => {
   return (
     <div>
       <SearchBar onSearch={handleSubmit} />
-      {/* <MovieList items={movieItems} /> */}
+      <MovieList items={movieItems} />
     </div>
   );
 };
