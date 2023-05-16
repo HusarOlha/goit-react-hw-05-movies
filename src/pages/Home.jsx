@@ -34,6 +34,7 @@ const Home = () => {
 
   return (
     <Container>
+      <Text>Trending Movies</Text>
       <MovieList items={movies} />
     </Container>
   );

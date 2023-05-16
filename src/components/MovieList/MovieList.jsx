@@ -11,7 +11,6 @@ import {
 export const MovieList = ({ items }) => {
   return (
     <ListContainer>
-      <ListTitle>Trending movies</ListTitle>
       <ListItem>
         {items.map(item => (
           <List key={item.id}>
