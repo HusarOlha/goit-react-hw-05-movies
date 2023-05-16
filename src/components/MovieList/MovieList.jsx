@@ -4,7 +4,6 @@ import {
   ListItem,
   ListText,
   Image,
-  ListTitle,
   List,
 } from './MovieList.styled';
 
