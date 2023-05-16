@@ -35,7 +35,7 @@ const Reviews = () => {
     return null;
   }
 
-  if (status === 'loading') {
+  if (status === 'loading' && loading) {
     return <Loader />;
   }
 
