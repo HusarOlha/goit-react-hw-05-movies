@@ -1,57 +1,46 @@
-import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
-import { GetMovieHome } from 'components/Services/GetMovie';
-import MovieList from 'components/MovieList';
+import { useEffect, useState } from 'react';
+import { GetTrendingMovies } from 'components/Services/GetMovie';
+import TrendingMovieList from 'components/TrendingMovie/TrendingMovie';
 import Loader from 'components/Loader';
+import styled from '@emotion/styled';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  const [status, setStatus] = useState('idle');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      setStatus('loading');
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        const response = await GetMovieHome();
-        setMovies(response.results);
-        setStatus('success');
-      } catch (error) {
+        const response = await GetTrendingMovies();
+        setMovies(response);
+      } catch {
         setError(error);
-        setStatus('error');
+      } finally {
+        setLoading(false);
       }
     };
-    fetchMovies();
-  }, []);
-
-  if (status === 'idle' || status === 'loading') {
-    return <Loader />;
-  }
-
-  if (status === 'error') {
-    return <div>Error: {error.message}</div>;
-  }
+    fetchData();
+  }, [error]);
 
   return (
-    <Container>
-      <Text>Trending Movies</Text>
-      <MovieList items={movies} />
-    </Container>
+    <main>
+      <Section>
+        {loading && <Loader></Loader>}
+        <div>
+          <TrendingMovieList trendMovies={movies} />
+        </div>
+      </Section>
+    </main>
   );
 };
 
-const Container = styled.div`
+const Section = styled.section`
   margin-left: auto;
   margin-right: auto;
   max-width: 1200;
   padding: 0 15px;
 `;
 
-const Text = styled.h1`
-  text-align: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1.4;
-`;
 export default Home;

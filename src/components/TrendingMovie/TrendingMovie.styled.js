@@ -31,3 +31,10 @@ export const Image = styled.img`
     transform: scale(1.1);
   }
 `;
+export const ListTitle = styled.h1`
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.4;
+`;
