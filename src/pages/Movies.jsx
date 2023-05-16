@@ -49,7 +49,7 @@ const Movies = () => {
     fetchMoviesBySearch();
   }, [page, query]);
 
-  if (status === 'loading') {
+  if (status === 'loading' && loading) {
     return <Loader />;
   }
 
