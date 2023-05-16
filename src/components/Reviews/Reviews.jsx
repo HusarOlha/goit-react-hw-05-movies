@@ -12,6 +12,7 @@ const Reviews = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
+    const abortController = new AbortController();
     const fetchMovieReviews = async () => {
       setStatus('loading');
       setLoading(true);
@@ -29,6 +30,9 @@ const Reviews = () => {
     };
 
     fetchMovieReviews();
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   if (status === 'idle') {

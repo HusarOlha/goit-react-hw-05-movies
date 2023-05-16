@@ -1,4 +1,5 @@
 import { StyledLink, ArrowLink } from './Backlink.styled';
+import PropTypes from 'prop-types';
 
 const BackLink = ({ to, children }) => {
   return (
@@ -7,5 +8,9 @@ const BackLink = ({ to, children }) => {
       {children}
     </StyledLink>
   );
+};
+BackLink.propTypes = {
+  to: PropTypes.string.isRequired,
+  children: PropTypes.string.isRequired,
 };
 export default BackLink;

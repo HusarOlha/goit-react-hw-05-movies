@@ -17,6 +17,7 @@ const MovieDetails = () => {
 
   useEffect(() => {
     setStatus('loading');
+    const abortController = new AbortController();
     const fetchMovieDetails = async () => {
       try {
         const response = await GetFullInfoMovie(movieId);
@@ -28,6 +29,9 @@ const MovieDetails = () => {
       }
     };
     fetchMovieDetails();
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   if (status === 'idle' || status === 'loading') {

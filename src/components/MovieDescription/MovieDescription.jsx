@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Container,
   Poster,
@@ -46,6 +47,20 @@ const MovieDescription = ({ movie }) => {
       </AdditionalInfo>
     </Container>
   );
+};
+MovieDescription.propTypes = {
+  movie: PropTypes.shape({
+    poster_path: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  }).isRequired,
 };
 
 export default MovieDescription;

@@ -4,33 +4,31 @@ import { GetMoviesBySearch } from 'components/Services/GetMovie';
 import { MovieList } from 'components/MovieList/MovieList';
 import Loader from 'components/Loader/Loader';
 import { toast } from 'react-hot-toast';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [page, setPage] = useState(1);
-  const [query, setQuery] = useState('');
   const [movieItems, setMovieItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('idle');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  function handleSubmit(newQuery) {
-    setQuery(newQuery);
-    setPage(1);
-  }
+  const movieName = searchParams.get('name') ?? '';
 
   useEffect(() => {
     setLoading(true);
     setStatus('loading');
-
+    const abortController = new AbortController();
     const fetchMoviesBySearch = async () => {
       try {
-        if (!query.trim()) {
+        if (!movieName) {
           setLoading(false);
           setStatus('idle');
           return;
         }
 
-        const resp = await GetMoviesBySearch(query, page);
+        const resp = await GetMoviesBySearch(movieName, page);
 
         setMovieItems(resp.results);
         setLoading(false);
@@ -47,7 +45,18 @@ const Movies = () => {
     };
 
     fetchMoviesBySearch();
-  }, [page, query]);
+    return () => {
+      abortController.abort();
+    };
+  }, [page, movieName]);
+
+  const updateQueryString = name => {
+    const newParams = name !== '' ? { name } : {};
+    setSearchParams(newParams);
+
+    setMovieItems([]);
+    setPage(1);
+  };
 
   if (status === 'loading' && loading) {
     return <Loader />;
@@ -59,7 +68,7 @@ const Movies = () => {
 
   return (
     <div>
-      <SearchBar onSearch={handleSubmit} />
+      <SearchBar value={movieName} onSubmit={updateQueryString} />
       <MovieList items={movieItems} />
     </div>
   );

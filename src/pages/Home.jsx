@@ -10,6 +10,7 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
     const fetchMovies = async () => {
       setStatus('loading');
       try {
@@ -22,6 +23,9 @@ const Home = () => {
       }
     };
     fetchMovies();
+    return () => {
+      abortController.abort();
+    };
   }, []);
 
   if (status === 'idle' || status === 'loading') {

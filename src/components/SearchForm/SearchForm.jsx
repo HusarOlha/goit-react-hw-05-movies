@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import { toast } from 'react-hot-toast';
+import PropTypes from 'prop-types';
 import {
   SearchForm,
   SearchButton,
@@ -12,12 +13,12 @@ const initialValues = {
   value: '',
 };
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (values, { resetForm }) => {
     if (!values.value.trim()) {
       toast.error('Please enter a search query');
     } else {
-      onSearch(values.value);
+      onSubmit(values.value);
       resetForm();
     }
   };
@@ -45,6 +46,10 @@ const SearchBar = ({ onSearch }) => {
       </Formik>
     </SearchSection>
   );
+};
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
