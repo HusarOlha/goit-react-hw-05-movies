@@ -1,7 +1,7 @@
 import SearchBar from 'components/SearchForm';
 import { useState, useEffect } from 'react';
 import { GetMoviesBySearch } from 'components/Services/GetMovie';
-import MovieList from 'components/TrendingMovie';
+import { MovieList } from 'components/MovieList/MovieList';
 import Loader from 'components/Loader/Loader';
 import { toast } from 'react-hot-toast';
 
@@ -49,7 +49,7 @@ const Movies = () => {
     fetchMoviesBySearch();
   }, [page, query]);
 
-  if (status === 'loading' && loading) {
+  if (status === 'loading') {
     return <Loader />;
   }
 

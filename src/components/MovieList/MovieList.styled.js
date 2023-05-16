@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ListContainer = styled.div`
-  grid-gap: 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-`;
+export const ListContainer = styled.div``;
 
 export const ListText = styled.h2`
   color: white;
@@ -14,13 +10,11 @@ export const ListText = styled.h2`
 `;
 
 export const ListItem = styled.ul`
-  padding: 20px;
   text-align: center;
-  border-radius: 10px;
-  border: 1px solid white;
-  &:hover {
-    border: 1px solid yellow;
-  }
+
+  grid-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `;
 
 export const Image = styled.img`
@@ -37,4 +31,13 @@ export const ListTitle = styled.h1`
   margin-top: 20px;
   font-family: 'Montserrat', sans-serif;
   line-height: 1.4;
+`;
+
+export const List = styled.li`
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid white;
+  &:hover {
+    border: 1px solid yellow;
+  }
 `;

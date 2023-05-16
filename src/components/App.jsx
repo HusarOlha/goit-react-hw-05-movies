@@ -1,20 +1,15 @@
-import React from 'react';
-
 import { Routes, Route } from 'react-router-dom';
-import { lazy } from 'react';
+import Home from '../pages/Home';
+import MovieDetails from 'pages/MovieDetails';
+import Cast from './Cast/Cast';
 import Layout from './Layout/Layout';
-
+import Reviews from './Reviews/Reviews';
+import Movies from 'pages/Movies';
 import { Toaster } from 'react-hot-toast';
-
-const Home = lazy(() => import('pages/Home'));
-const MovieDetails = lazy(() => import('pages/MovieDetails'));
-const Movies = lazy(() => import('pages/Movies'));
-const Cast = lazy(() => import('./Cast/Cast'));
-const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 export const App = () => {
   return (
-    <>
+    <div>
       <Toaster
         position="top-right"
         toastOptions={{
@@ -31,15 +26,16 @@ export const App = () => {
       ></Toaster>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="movies" element={<Movies />} />
+          <Route index element={<Home></Home>} />
+          <Route path="movies" element={<Movies></Movies>} />
+
           <Route path="movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
+            <Route path="reviews" element={<Reviews></Reviews>} />
           </Route>
         </Route>
         <Route path="*" element={<div>Not found</div>} />
       </Routes>
-    </>
+    </div>
   );
 };

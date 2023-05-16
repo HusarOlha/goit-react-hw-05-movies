@@ -1,46 +1,56 @@
-import { useEffect, useState } from 'react';
-import { GetTrendingMovies } from 'components/Services/GetMovie';
-import TrendingMovieList from 'components/TrendingMovie/TrendingMovie';
-import Loader from 'components/Loader';
 import styled from '@emotion/styled';
+import { useState, useEffect } from 'react';
+import { GetMovieHome } from 'components/Services/GetMovie';
+import { MovieList } from 'components/MovieList/MovieList';
+import Loader from 'components/Loader';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+    const fetchMovies = async () => {
+      setStatus('loading');
       try {
-        const response = await GetTrendingMovies();
-        setMovies(response);
-      } catch {
+        const response = await GetMovieHome();
+        setMovies(response.results);
+        setStatus('success');
+      } catch (error) {
         setError(error);
-      } finally {
-        setLoading(false);
+        setStatus('error');
       }
     };
-    fetchData();
-  }, [error]);
+    fetchMovies();
+  }, []);
+
+  if (status === 'idle' || status === 'loading') {
+    return <Loader />;
+  }
+
+  if (status === 'error') {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
-    <main>
-      <Section>
-        {loading && <Loader></Loader>}
-        <div>
-          <TrendingMovieList trendMovies={movies} />
-        </div>
-      </Section>
-    </main>
+    <Container>
+      <MovieList items={movies} />
+    </Container>
   );
 };
 
-const Section = styled.section`
+const Container = styled.div`
   margin-left: auto;
   margin-right: auto;
   max-width: 1200;
   padding: 0 15px;
 `;
 
+const Text = styled.h1`
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.4;
+`;
 export default Home;
