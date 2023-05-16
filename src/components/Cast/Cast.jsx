@@ -12,7 +12,7 @@ const Cast = () => {
 
   useEffect(() => {
     setLoading(true);
-
+    const abortController = new AbortController();
     const fetchMovieCast = async () => {
       try {
         const response = await GetCast(movieId);
@@ -25,6 +25,9 @@ const Cast = () => {
     };
 
     fetchMovieCast();
+    return () => {
+      abortController.abort();
+    };
   }, [movieId]);
 
   if (loading) {
