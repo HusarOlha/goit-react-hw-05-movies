@@ -4,7 +4,7 @@ import { GetMoviesBySearch } from 'components/Services/GetMovie';
 import { MovieList } from 'components/MovieList/MovieList';
 import Loader from 'components/Loader/Loader';
 import { toast } from 'react-hot-toast';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [page, setPage] = useState(1);
