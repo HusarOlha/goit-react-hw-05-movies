@@ -6,7 +6,8 @@ export const Header = styled.header`
   left: 0;
   position: sticky;
   z-index: 1100;
-  background: url('https://cojo.ru/wp-content/uploads/2022/12/kinolenta-29.webp');
+  top: 0;
+  background: url('https://phonoteka.org/uploads/posts/2021-05/1620980343_19-phonoteka_org-p-krasivii-fon-kino-21.jpg');
   box-shadow: 0px 2px 4px -1px white, 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
     0px 1px 10px 0px white;
 
