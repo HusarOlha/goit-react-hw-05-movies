@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const BackLink = ({ to, children }) => {
   return (
-    <StyledLink to={to}>
+    <StyledLink to={to || '/'}>
       <ArrowLink />
       {children}
     </StyledLink>

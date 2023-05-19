@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { GetFullInfoMovie } from 'components/Services/GetMovie';
 import MovieDescription from 'components/MovieDescription/MovieDescription';
@@ -14,8 +14,7 @@ const MovieDetails = () => {
 
   const location = useLocation();
 
-  const backLinkLocationRef = location.state?.from ?? { pathname: '/' };
-  console.log(backLinkLocationRef);
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     setStatus('loading');
@@ -44,7 +43,9 @@ const MovieDetails = () => {
         <p>Sorry we have error:{error.message} please reload page!</p>
       ) : (
         <>
-          <BackLink to={backLinkLocationRef.pathname}> Back </BackLink>
+          <BackLink to={backLinkLocationRef.current?.from?.pathname || '/'}>
+            Back
+          </BackLink>
 
           <MovieDescription movie={movie} />
         </>

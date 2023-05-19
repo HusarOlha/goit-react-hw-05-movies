@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <Container>
       <Text>Trending Movies</Text>
-      <MovieList items={movies} state={{ from: location }} />
+      <MovieList items={movies} location={{ from: location }} />
     </Container>
   );
 };

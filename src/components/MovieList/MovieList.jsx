@@ -8,14 +8,14 @@ import {
   List,
 } from './MovieList.styled';
 
-export const MovieList = ({ items }) => {
+export const MovieList = ({ items, location }) => {
   return (
     <ListContainer>
       <ListItem>
         {items.map(item => (
           <List key={item.id}>
             <ListText>{item.title}</ListText>
-            <Link to={`/movies/${item.id}`}>
+            <Link to={`/movies/${item.id}`} state={{ from: location }}>
               <Image
                 src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
                 alt={item.title}

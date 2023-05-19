@@ -75,7 +75,7 @@ const Movies = () => {
         <p>Sorry we have error:{error.message} please reload page!</p>
       )}
       <SearchBar value={movieName} onSubmit={updateQueryString} />
-      <MovieList items={movieItems} state={{ from: location }} />
+      <MovieList items={movieItems} location={{ from: location }} />
     </div>
   );
 };
