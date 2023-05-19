@@ -4,7 +4,7 @@ import { GetMoviesBySearch } from 'components/Services/GetMovie';
 import { MovieList } from 'components/MovieList/MovieList';
 import Loader from 'components/Loader/Loader';
 import { toast } from 'react-hot-toast';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 
 const Movies = () => {
   const [page, setPage] = useState(1);
@@ -15,6 +15,8 @@ const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const movieName = searchParams.get('name') ?? '';
+
+  const location = useLocation();
 
   useEffect(() => {
     setLoading(true);
@@ -28,7 +30,7 @@ const Movies = () => {
           return;
         }
 
-        const resp = await GetMoviesBySearch(movieName, page);
+        const resp = await GetMoviesBySearch(movieName, page, abortController);
 
         setMovieItems(resp.results);
         setLoading(false);
@@ -63,13 +65,17 @@ const Movies = () => {
   }
 
   if (status === 'failed') {
+    console.log(error.message);
     return <div>Error: {error.message}</div>;
   }
 
   return (
     <div>
+      {error && error.message !== 'error' && (
+        <p>Sorry we have error:{error.message} please reload page!</p>
+      )}
       <SearchBar value={movieName} onSubmit={updateQueryString} />
-      <MovieList items={movieItems} />
+      <MovieList items={movieItems} state={{ from: location }} />
     </div>
   );
 };

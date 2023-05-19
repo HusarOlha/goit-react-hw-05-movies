@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { GetFullInfoMovie } from 'components/Services/GetMovie';
 import MovieDescription from 'components/MovieDescription/MovieDescription';
@@ -13,7 +13,9 @@ const MovieDetails = () => {
   const [status, setStatus] = useState('idle');
 
   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/');
+
+  const backLinkLocationRef = location.state?.from ?? { pathname: '/' };
+  console.log(backLinkLocationRef);
 
   useEffect(() => {
     setStatus('loading');
@@ -34,18 +36,19 @@ const MovieDetails = () => {
     };
   }, [movieId]);
 
-  if (status === 'idle' || status === 'loading') {
-    return <Loader />;
-  }
-
-  if (status === 'error') {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
     <Main>
-      <BackLink to={backLinkLocationRef.current}> Back </BackLink>
-      <MovieDescription movie={movie} />
+      {status === 'idle' || status === 'loading' ? (
+        <Loader />
+      ) : error && error.message !== 'error' ? (
+        <p>Sorry we have error:{error.message} please reload page!</p>
+      ) : (
+        <>
+          <BackLink to={backLinkLocationRef.pathname}> Back </BackLink>
+
+          <MovieDescription movie={movie} />
+        </>
+      )}
     </Main>
   );
 };

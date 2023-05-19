@@ -26,8 +26,9 @@ const Layout = () => {
             </ThreeDots>
           </div>
         }
-      ></Suspense>
-      <Outlet />
+      >
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

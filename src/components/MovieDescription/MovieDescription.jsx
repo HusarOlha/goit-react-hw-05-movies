@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container,
@@ -43,7 +44,9 @@ const MovieDescription = ({ movie }) => {
           <InfoLink to="cast">Cast</InfoLink>
           <InfoLink to="reviews">Reviews</InfoLink>
         </List>
-        <Outlet></Outlet>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </AdditionalInfo>
     </Container>
   );
