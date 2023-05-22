@@ -43,7 +43,12 @@ const MovieDetails = () => {
         <p>Sorry we have error:{error.message} please reload page!</p>
       ) : (
         <>
-          <BackLink to={backLinkLocationRef.current?.from?.pathname || '/'}>
+          <BackLink
+            to={
+              `${backLinkLocationRef.current?.from?.pathname}${backLinkLocationRef.current?.from?.search}` ||
+              '/'
+            }
+          >
             Back
           </BackLink>
 
